@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import './App.css';
 
+import Statistics from './Statistics/Statistics';
+import FeedbackOptions from './FeedbackOptions/FeedbackOptions';
+import Section from './Section/Section';
+
 function App() {
-  const [goodFeedback, setGoodFeedback] = useState(0);
-  const [neutralFeedback, setNeutralFeedback] = useState(0);
-  const [badFeedback, setBadFeedback] = useState(0);
+  const [goodFeedback, setGoodFeedback] = useState<number>(0);
+  const [neutralFeedback, setNeutralFeedback] = useState<number>(0);
+  const [badFeedback, setBadFeedback] = useState<number>(0);
 
   const onLeaveFeedback = (e: React.MouseEvent<HTMLButtonElement>) => {
     const name = e.currentTarget.name;
@@ -35,30 +39,23 @@ function App() {
 
   return (
     <div className="App">
-      <h2>Please leave feedback</h2>
-      <ul>
-        <li>
-          <button type="button" name="good" onClick={onLeaveFeedback}>
-            good
-          </button>
-        </li>
-        <li>
-          <button type="button" name="neutral" onClick={onLeaveFeedback}>
-            neutral
-          </button>
-        </li>
-        <li>
-          <button type="button" name="bad" onClick={onLeaveFeedback}>
-            bad
-          </button>
-        </li>
-      </ul>
-      <h2>Statistics</h2>
-      <p>Good: {goodFeedback}</p>
-      <p>Neutral: {neutralFeedback}</p>
-      <p>Bad: {badFeedback}</p>
-      <p>Total: {countTotalFeedback()}</p>
-      <p>Positive feedback: {countPositiveFeedbackPercentage()}%</p>
+      <Section title="Please leave feedback">
+        <FeedbackOptions
+          goodFeedback={goodFeedback}
+          neutralFeedback={neutralFeedback}
+          badFeedback={badFeedback}
+          onLeaveFeedback={onLeaveFeedback}
+        />
+      </Section>
+      <Section title="Statistics">
+        <Statistics
+          goodFeedback={goodFeedback}
+          neutralFeedback={neutralFeedback}
+          badFeedback={badFeedback}
+          countTotalFeedback={countTotalFeedback()}
+          countPositiveFeedbackPercentage={countPositiveFeedbackPercentage()}
+        />
+      </Section>
     </div>
   );
 }
