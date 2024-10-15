@@ -25,6 +25,14 @@ function App() {
     }
   };
 
+  const countTotalFeedback = (): number => {
+    return goodFeedback + neutralFeedback + badFeedback;
+  };
+
+  const countPositiveFeedbackPercentage = (): number => {
+    return Math.round((goodFeedback / countTotalFeedback()) * 100) || 0;
+  };
+
   return (
     <div className="App">
       <h2>Please leave feedback</h2>
@@ -49,6 +57,8 @@ function App() {
       <p>Good: {goodFeedback}</p>
       <p>Neutral: {neutralFeedback}</p>
       <p>Bad: {badFeedback}</p>
+      <p>Total: {countTotalFeedback()}</p>
+      <p>Positive feedback: {countPositiveFeedbackPercentage()}%</p>
     </div>
   );
 }
