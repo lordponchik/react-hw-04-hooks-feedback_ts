@@ -4,6 +4,7 @@ import './App.css';
 import Statistics from './Statistics/Statistics';
 import FeedbackOptions from './FeedbackOptions/FeedbackOptions';
 import Section from './Section/Section';
+import Notification from './Notification/Notification';
 
 function App() {
   const [goodFeedback, setGoodFeedback] = useState<number>(0);
@@ -48,13 +49,17 @@ function App() {
         />
       </Section>
       <Section title="Statistics">
-        <Statistics
-          goodFeedback={goodFeedback}
-          neutralFeedback={neutralFeedback}
-          badFeedback={badFeedback}
-          countTotalFeedback={countTotalFeedback()}
-          countPositiveFeedbackPercentage={countPositiveFeedbackPercentage()}
-        />
+        {countTotalFeedback() === 0 ? (
+          <Notification message="There is no feedback" />
+        ) : (
+          <Statistics
+            goodFeedback={goodFeedback}
+            neutralFeedback={neutralFeedback}
+            badFeedback={badFeedback}
+            countTotalFeedback={countTotalFeedback()}
+            countPositiveFeedbackPercentage={countPositiveFeedbackPercentage()}
+          />
+        )}
       </Section>
     </div>
   );
